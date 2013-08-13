@@ -47,6 +47,11 @@ void __init omap_vp_init(struct voltagedomain *voltdm)
 		return;
 	}
 
+	if (!voltdm->pmic || !voltdm->pmic->uv_to_vsel) {
+		pr_err("%s: No PMIC info for vdd_%s\n", __func__, voltdm->name);
+		return;
+	}
+
 	if (!voltdm->read || !voltdm->write) {
 		pr_err("%s: No read/write API for accessing vdd_%s regs\n",
 			__func__, voltdm->name);
