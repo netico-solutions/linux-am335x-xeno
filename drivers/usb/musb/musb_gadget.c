@@ -593,7 +593,7 @@ void musb_g_tx(struct musb *musb, u8 epnum)
 			 * on SMP systems. Reselect the INDEX to be sure
 			 * we are reading/modifying the right registers
 			 */
-			musb_ep_select(mbase, epnum);
+			musb_ep_select(musb, mbase, epnum);
 			req = musb_ep->desc ? next_request(musb_ep) : NULL;
 			if (!req) {
 				dev_dbg(musb->controller, "%s idle now\n",
@@ -1001,7 +1001,7 @@ void musb_g_rx(struct musb *musb, u8 epnum)
 		 * on SMP systems. Reselect the INDEX to be sure
 		 * we are reading/modifying the right registers
 		 */
-		musb_ep_select(mbase, epnum);
+		musb_ep_select(musb, mbase, epnum);
 
 		req = next_request(musb_ep);
 		if (!req)
