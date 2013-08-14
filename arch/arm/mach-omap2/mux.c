@@ -876,7 +876,7 @@ static int __init omap_mux_late_init(void)
 	}
 	
 	if (ret)
-		pr_warning("mux: Failed to setup hwmod io irq %d\n", irq);
+		pr_warning("OMAP mux: Failed to setup hwmod io irq %d\n", irq);
 
 	omap_mux_dbg_init();
 
