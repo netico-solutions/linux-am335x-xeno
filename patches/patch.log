@@ -1,0 +1,1065 @@
+Applying patch x86_64-patch-for-idle-notifiers.patch
+patching file arch/x86/kernel/apic/apic.c
+patching file arch/x86/kernel/apic/io_apic.c
+patching file arch/x86/kernel/cpu/mcheck/therm_throt.c
+patching file arch/x86/kernel/cpu/mcheck/threshold.c
+patching file arch/x86/kernel/irq.c
+
+Applying patch re-possible-slab-deadlock-while-doing-ifenslave-1.patch
+patching file mm/slab.c
+
+Applying patch x86-kprobes-remove-bogus-preempt-enable.patch
+patching file arch/x86/kernel/kprobes.c
+
+Applying patch x86-hpet-disable-msi-on-lenovo-w510.patch
+patching file arch/x86/kernel/hpet.c
+
+Applying patch block-shorten-interrupt-disabled-regions.patch
+patching file block/blk-core.c
+
+Applying patch sched-distangle-worker-accounting-from-rq-3elock.patch
+patching file kernel/sched.c
+patching file kernel/workqueue.c
+patching file kernel/workqueue_sched.h
+
+Applying patch mips-enable-interrupts-in-signal.patch
+patching file arch/mips/kernel/signal.c
+
+Applying patch arm-enable-interrupts-in-signal-code.patch
+patching file arch/arm/kernel/signal.c
+
+Applying patch powerpc-85xx-mark-cascade-irq-no-thread.patch
+patching file arch/powerpc/platforms/85xx/mpc85xx_cds.c
+
+Applying patch powerpc-wsp-opb-mark-demux-handler-nothread.patch
+patching file arch/powerpc/platforms/wsp/opb_pic.c
+
+Applying patch powerpc-markipi-interrupts-nothread.patch
+patching file arch/powerpc/kernel/smp.c
+patching file arch/powerpc/platforms/powermac/smp.c
+patching file arch/powerpc/sysdev/xics/xics-common.c
+
+Applying patch power-allow-irq-threading.patch
+patching file arch/powerpc/Kconfig
+
+Applying patch sched-keep-period-timer-alive-when-throttled.patch
+patching file kernel/sched_rt.c
+
+Applying patch sched-prevent-boosting-from-throttling.patch
+patching file kernel/sched_rt.c
+
+Applying patch intel_idle-convert-i7300_idle_lock-to-raw-spinlock.patch
+patching file drivers/idle/i7300_idle.c
+
+Applying patch mm-memcg-shorten-preempt-disabled-section-around-event-checks.patch
+patching file mm/memcontrol.c
+
+Applying patch tracing-account-for-preempt-off-in-preempt_schedule.patch
+patching file kernel/sched.c
+
+Applying patch signal-revert-ptrace-preempt-magic.patch
+patching file kernel/signal.c
+
+Applying patch arm-mark-pmu-interupt-no-thread.patch
+patching file arch/arm/kernel/perf_event.c
+Hunk #1 succeeded at 439 (offset -2 lines).
+
+Applying patch arm-allow-irq-threading.patch
+patching file arch/arm/Kconfig
+
+Applying patch arm-convert-boot-lock-to-raw.patch
+patching file arch/arm/mach-exynos/platsmp.c
+Hunk #1 succeeded at 62 with fuzz 2 (offset -1 lines).
+Hunk #2 succeeded at 82 (offset -26 lines).
+Hunk #3 succeeded at 94 (offset -26 lines).
+Hunk #4 succeeded at 123 (offset -26 lines).
+Hunk #5 succeeded at 151 (offset -26 lines).
+patching file arch/arm/mach-msm/platsmp.c
+patching file arch/arm/mach-omap2/omap-smp.c
+Hunk #1 succeeded at 33 with fuzz 2 (offset 4 lines).
+Hunk #2 succeeded at 64 (offset 21 lines).
+Hunk #3 succeeded at 76 (offset 23 lines).
+Hunk #4 succeeded at 116 (offset 46 lines).
+patching file arch/arm/mach-tegra/platsmp.c
+patching file arch/arm/mach-ux500/platsmp.c
+patching file arch/arm/plat-versatile/platsmp.c
+
+Applying patch sched-create-schedule-preempt-disabled.patch
+patching file include/linux/sched.h
+patching file kernel/sched.c
+
+Applying patch sched-use-schedule-preempt-disabled.patch
+patching file arch/arm/kernel/process.c
+Hunk #1 succeeded at 213 (offset -1 lines).
+patching file arch/avr32/kernel/process.c
+patching file arch/blackfin/kernel/process.c
+patching file arch/cris/kernel/process.c
+patching file arch/frv/kernel/process.c
+patching file arch/h8300/kernel/process.c
+patching file arch/ia64/kernel/process.c
+patching file arch/m32r/kernel/process.c
+patching file arch/m68k/kernel/process_mm.c
+patching file arch/m68k/kernel/process_no.c
+patching file arch/microblaze/kernel/process.c
+patching file arch/mips/kernel/process.c
+patching file arch/mn10300/kernel/process.c
+patching file arch/parisc/kernel/process.c
+patching file arch/powerpc/kernel/idle.c
+patching file arch/powerpc/platforms/iseries/setup.c
+patching file arch/s390/kernel/process.c
+patching file arch/score/kernel/process.c
+patching file arch/sh/kernel/idle.c
+patching file arch/sparc/kernel/process_32.c
+patching file arch/sparc/kernel/process_64.c
+patching file arch/tile/kernel/process.c
+patching file arch/x86/kernel/process_32.c
+patching file arch/x86/kernel/process_64.c
+patching file arch/xtensa/kernel/process.c
+patching file init/main.c
+patching file kernel/mutex.c
+patching file kernel/softirq.c
+
+Applying patch signals-do-not-wake-self.patch
+patching file kernel/signal.c
+
+Applying patch posix-timers-no-broadcast.patch
+patching file kernel/posix-timers.c
+
+Applying patch signals-allow-rt-tasks-to-cache-one-sigqueue-struct.patch
+patching file include/linux/sched.h
+Hunk #1 succeeded at 1392 (offset 5 lines).
+patching file include/linux/signal.h
+patching file kernel/exit.c
+patching file kernel/fork.c
+patching file kernel/signal.c
+
+Applying patch generic-cmpxchg-use-raw-local-irq.patch
+patching file include/asm-generic/cmpxchg-local.h
+
+Applying patch drivers-random-reduce-preempt-disabled-region.patch
+patching file drivers/char/random.c
+
+Applying patch arm-at91-pit-remove-irq-handler-when-clock-is-unused.patch
+patching file arch/arm/mach-at91/at91rm9200_time.c
+patching file arch/arm/mach-at91/at91sam926x_time.c
+
+Applying patch clocksource-tclib-allow-higher-clockrates.patch
+patching file drivers/clocksource/tcb_clksrc.c
+patching file drivers/misc/Kconfig
+
+Applying patch drivers-net-tulip-add-missing-pci-disable.patch
+patching file drivers/net/ethernet/dec/tulip/tulip_core.c
+
+Applying patch drivers-net-8139-disable-irq-nosync.patch
+patching file drivers/net/ethernet/realtek/8139too.c
+
+Applying patch drivers-net-ehea-mark-rx-irq-no-thread.patch
+patching file drivers/net/ethernet/ibm/ehea/ehea_main.c
+
+Applying patch drivers-net-at91-make-mdio-protection-rt-safe.patch
+patching file drivers/net/ethernet/cadence/at91_ether.c
+
+Applying patch preempt-mark-legitimated-no-resched-sites.patch
+patching file arch/powerpc/kernel/idle.c
+patching file arch/sparc/kernel/process_64.c
+patching file include/linux/preempt.h
+patching file kernel/sched.c
+patching file kernel/softirq.c
+
+Applying patch mm-prepare-pf-disable-discoupling.patch
+patching file include/linux/sched.h
+patching file include/linux/uaccess.h
+patching file kernel/fork.c
+patching file mm/memory.c
+
+Applying patch arch-use-pagefault-disabled.patch
+patching file arch/alpha/mm/fault.c
+patching file arch/arm/mm/fault.c
+patching file arch/avr32/mm/fault.c
+patching file arch/cris/mm/fault.c
+patching file arch/frv/mm/fault.c
+patching file arch/ia64/mm/fault.c
+patching file arch/m32r/mm/fault.c
+patching file arch/m68k/mm/fault.c
+patching file arch/microblaze/mm/fault.c
+patching file arch/mips/mm/fault.c
+patching file arch/mn10300/mm/fault.c
+patching file arch/parisc/mm/fault.c
+patching file arch/powerpc/mm/fault.c
+patching file arch/s390/mm/fault.c
+patching file arch/score/mm/fault.c
+patching file arch/sh/mm/fault_32.c
+patching file arch/sparc/mm/fault_32.c
+patching file arch/sparc/mm/fault_64.c
+patching file arch/tile/mm/fault.c
+patching file arch/um/kernel/trap.c
+patching file arch/x86/mm/fault.c
+patching file arch/xtensa/mm/fault.c
+
+Applying patch peter_zijlstra-frob-pagefault_disable.patch
+patching file arch/alpha/mm/fault.c
+patching file arch/arm/mm/fault.c
+patching file arch/avr32/mm/fault.c
+patching file arch/cris/mm/fault.c
+patching file arch/frv/mm/fault.c
+patching file arch/ia64/mm/fault.c
+patching file arch/m32r/mm/fault.c
+patching file arch/m68k/mm/fault.c
+patching file arch/microblaze/mm/fault.c
+patching file arch/mips/mm/fault.c
+patching file arch/mn10300/mm/fault.c
+patching file arch/parisc/mm/fault.c
+patching file arch/powerpc/mm/fault.c
+patching file arch/s390/mm/fault.c
+patching file arch/score/mm/fault.c
+patching file arch/sh/mm/fault_32.c
+patching file arch/sparc/mm/fault_32.c
+patching file arch/sparc/mm/fault_64.c
+patching file arch/tile/mm/fault.c
+patching file arch/um/kernel/trap.c
+patching file arch/x86/mm/fault.c
+patching file arch/xtensa/mm/fault.c
+patching file include/linux/sched.h
+patching file kernel/fork.c
+
+Applying patch peterz-raw_pagefault_disable.patch
+patching file include/linux/uaccess.h
+patching file mm/memory.c
+
+Applying patch filemap-fix-up.patch
+patching file mm/filemap.c
+
+Applying patch mm-remove-preempt-count-from-pf.patch
+patching file mm/memory.c
+
+Applying patch x86-highmem-warn.patch
+patching file arch/x86/mm/highmem_32.c
+
+Applying patch suspend-prevernt-might-sleep-splats.patch
+patching file include/linux/kernel.h
+patching file kernel/power/hibernate.c
+patching file kernel/power/suspend.c
+
+Applying patch of-fixup-recursive-locking.patch
+patching file drivers/of/base.c
+
+Applying patch of-convert-devtree-lock.patch
+patching file arch/sparc/kernel/prom_common.c
+patching file drivers/of/base.c
+patching file include/linux/of.h
+
+Applying patch list-add-list-last-entry.patch
+patching file include/linux/list.h
+
+Applying patch mm-page-alloc-use-list-last-entry.patch
+patching file mm/page_alloc.c
+
+Applying patch mm-slab-move-debug-out.patch
+patching file mm/slab.c
+
+Applying patch pid-h-include-atomic-h.patch
+patching file include/linux/pid.h
+
+Applying patch sysctl-include-atomic-h.patch
+patching file include/linux/sysctl.h
+
+Applying patch net-flip-lock-dep-thingy.patch
+patching file net/core/sock.c
+
+Applying patch softirq-thread-do-softirq.patch
+patching file include/linux/interrupt.h
+patching file net/core/dev.c
+
+Applying patch softirq-split-out-code.patch
+patching file kernel/softirq.c
+
+Applying patch x86-io-apic-migra-no-unmask.patch
+patching file arch/x86/kernel/apic/io_apic.c
+
+Applying patch x86-32-fix-signal-crap.patch
+patching file arch/x86/kernel/entry_32.S
+
+Applying patch rcu-reduce-lock-section.patch
+patching file kernel/rcutree.c
+patching file kernel/rcutree.h
+patching file kernel/rcutree_plugin.h
+
+Applying patch locking-various-init-fixes.patch
+patching file drivers/char/random.c
+patching file drivers/usb/gadget/ci13xxx_udc.c
+Hunk #1 succeeded at 822 (offset 3 lines).
+patching file fs/file.c
+patching file include/linux/idr.h
+patching file kernel/cred.c
+
+Applying patch seqlock-remove-unused-functions.patch
+patching file include/linux/seqlock.h
+
+Applying patch seqlock-use-seqcount.patch
+patching file include/linux/seqlock.h
+
+Applying patch wait-provide-__wake_up_all_locked.patch
+patching file include/linux/wait.h
+patching file kernel/sched.c
+
+Applying patch pci-access-use-__wake_up_all_locked.patch
+patching file drivers/pci/access.c
+
+Applying patch acpi-make-gbl-hardware-lock-raw.patch
+patching file drivers/acpi/acpica/acglobal.h
+patching file drivers/acpi/acpica/evgpe.c
+patching file drivers/acpi/acpica/evgpeblk.c
+patching file drivers/acpi/acpica/evgpeutil.c
+patching file drivers/acpi/acpica/evxface.c
+patching file drivers/acpi/acpica/evxfgpe.c
+patching file drivers/acpi/acpica/hwregs.c
+patching file drivers/acpi/acpica/hwxface.c
+patching file drivers/acpi/acpica/utmutex.c
+
+Applying patch acpi-make-ec-lock-raw-as-well.patch
+patching file drivers/acpi/ec.c
+patching file drivers/acpi/internal.h
+
+Applying patch seqlock-raw-seqlock.patch
+patching file include/linux/seqlock.h
+
+Applying patch timekeeping-covert-xtimelock.patch
+patching file arch/ia64/kernel/time.c
+patching file arch/x86/include/asm/vgtod.h
+patching file arch/x86/kernel/vsyscall_64.c
+patching file kernel/time/ntp.c
+patching file kernel/time/tick-common.c
+patching file kernel/time/tick-internal.h
+patching file kernel/time/tick-sched.c
+patching file kernel/time/timekeeping.c
+
+Applying patch latency-hist.patch
+patching file Documentation/trace/histograms.txt
+patching file include/linux/sched.h
+patching file include/trace/events/hist.h
+patching file include/trace/events/latency_hist.h
+patching file kernel/hrtimer.c
+patching file kernel/trace/Kconfig
+patching file kernel/trace/Makefile
+patching file kernel/trace/latency_hist.c
+patching file kernel/trace/trace_irqsoff.c
+
+Applying patch hwlatdetect.patch
+patching file Documentation/hwlat_detector.txt
+patching file MAINTAINERS
+patching file drivers/misc/Kconfig
+patching file drivers/misc/Makefile
+patching file drivers/misc/hwlat_detector.c
+
+Applying patch localversion.patch
+patching file localversion-rt
+
+Applying patch early-printk-consolidate.patch
+patching file arch/arm/kernel/early_printk.c
+patching file arch/blackfin/kernel/early_printk.c
+patching file arch/microblaze/kernel/early_printk.c
+patching file arch/mips/kernel/early_printk.c
+patching file arch/powerpc/kernel/udbg.c
+patching file arch/sh/kernel/sh_bios.c
+patching file arch/sparc/kernel/setup_32.c
+patching file arch/sparc/kernel/setup_64.c
+patching file arch/tile/kernel/early_printk.c
+patching file arch/um/kernel/early_printk.c
+patching file arch/unicore32/kernel/early_printk.c
+patching file arch/x86/kernel/early_printk.c
+patching file include/linux/console.h
+patching file include/linux/printk.h
+patching file kernel/printk.c
+
+Applying patch printk-kill.patch
+patching file include/linux/printk.h
+patching file kernel/printk.c
+patching file kernel/watchdog.c
+
+Applying patch printk-27force_early_printk-27-boot-param-to-help-with-debugging.patch
+patching file kernel/printk.c
+
+Applying patch rt-preempt-base-config.patch
+patching file kernel/Kconfig.preempt
+
+Applying patch bug-rt-dependend-variants.patch
+patching file include/asm-generic/bug.h
+
+Applying patch local-irq-rt-depending-variants.patch
+patching file include/linux/interrupt.h
+patching file include/linux/irqflags.h
+
+Applying patch preempt-nort-rt-variants.patch
+patching file include/linux/preempt.h
+
+Applying patch ata-disable-interrupts-if-non-rt.patch
+patching file drivers/ata/libata-sff.c
+
+Applying patch ide-use-nort-local-irq-variants.patch
+patching file drivers/ide/alim15x3.c
+patching file drivers/ide/hpt366.c
+patching file drivers/ide/ide-io-std.c
+patching file drivers/ide/ide-io.c
+patching file drivers/ide/ide-iops.c
+patching file drivers/ide/ide-probe.c
+patching file drivers/ide/ide-taskfile.c
+
+Applying patch infiniband-mellanox-ib-use-nort-irq.patch
+patching file drivers/infiniband/ulp/ipoib/ipoib_multicast.c
+
+Applying patch inpt-gameport-use-local-irq-nort.patch
+patching file drivers/input/gameport/gameport.c
+
+Applying patch acpi-use-local-irq-nort.patch
+patching file arch/x86/include/asm/acpi.h
+
+Applying patch user-use-local-irq-nort.patch
+patching file kernel/user.c
+
+Applying patch resource-counters-use-localirq-nort.patch
+patching file kernel/res_counter.c
+
+Applying patch usb-hcd-use-local-irq-nort.patch
+patching file drivers/usb/core/hcd.c
+
+Applying patch tty-use-local-irq-nort.patch
+patching file drivers/tty/tty_ldisc.c
+
+Applying patch mm-scatterlist-dont-disable-irqs-on-RT.patch
+patching file lib/scatterlist.c
+
+Applying patch signal-fix-up-rcu-wreckage.patch
+patching file kernel/signal.c
+
+Applying patch net-wireless-warn-nort.patch
+patching file net/mac80211/rx.c
+
+Applying patch mm-cgroup-page-bit-spinlock.patch
+patching file include/linux/page_cgroup.h
+patching file mm/page_cgroup.c
+
+Applying patch fs-replace-bh_uptodate_lock-for-rt.patch
+patching file fs/buffer.c
+patching file fs/ntfs/aops.c
+patching file include/linux/buffer_head.h
+
+Applying patch fs-jbd-replace-bh_state-lock.patch
+patching file include/linux/buffer_head.h
+patching file include/linux/jbd_common.h
+
+Applying patch genirq-nodebug-shirq.patch
+patching file lib/Kconfig.debug
+
+Applying patch genirq-disable-random-call-on-preempt-rt.patch
+patching file kernel/irq/handle.c
+Hunk #1 succeeded at 168 (offset 12 lines).
+
+Applying patch genirq-disable-irqpoll-on-rt.patch
+patching file kernel/irq/spurious.c
+
+Applying patch genirq-force-threading.patch
+patching file include/linux/interrupt.h
+patching file kernel/irq/manage.c
+
+Applying patch drivers-net-fix-livelock-issues.patch
+patching file drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+patching file drivers/net/ethernet/atheros/atl1e/atl1e_main.c
+patching file drivers/net/ethernet/chelsio/cxgb/sge.c
+patching file drivers/net/ethernet/neterion/s2io.c
+patching file drivers/net/ethernet/oki-semi/pch_gbe/pch_gbe_main.c
+patching file drivers/net/ethernet/tehuti/tehuti.c
+patching file drivers/net/rionet.c
+
+Applying patch drivers-net-vortex-fix-locking-issues.patch
+patching file drivers/net/ethernet/3com/3c59x.c
+
+Applying patch drivers-net-gianfar-make-rt-aware.patch
+patching file drivers/net/ethernet/freescale/gianfar.c
+
+Applying patch usb-fix-mouse-problem-copying-large-data.patch
+patching file drivers/usb/host/ohci-hcd.c
+
+Applying patch local-var.patch
+patching file include/linux/percpu.h
+
+Applying patch rt-local-irq-lock.patch
+patching file include/linux/locallock.h
+
+Applying patch cpu-rt-variants.patch
+patching file include/linux/smp.h
+
+Applying patch mm-slab-wrap-functions.patch
+patching file mm/slab.c
+
+Applying patch rt-slab-fix-__do_drain-to-use-the-right-array-cache.patch
+patching file mm/slab.c
+
+Applying patch mm-slab-more-lock-breaks.patch
+patching file mm/slab.c
+
+Applying patch mm-page_alloc-rt-friendly-per-cpu-pages.patch
+patching file mm/page_alloc.c
+
+Applying patch mm-page_alloc-reduce-lock-sections-further.patch
+patching file mm/page_alloc.c
+
+Applying patch mm-page-alloc-fix.patch
+patching file mm/page_alloc.c
+
+Applying patch mm-convert-swap-to-percpu-locked.patch
+patching file mm/swap.c
+
+Applying patch mm-vmstat-fix-the-irq-lock-asymetry.patch
+patching file mm/vmscan.c
+
+Applying patch mm-make-vmstat-rt-aware.patch
+patching file include/linux/vmstat.h
+patching file mm/vmstat.c
+
+Applying patch mm-shrink-the-page-frame-to-rt-size.patch
+patching file include/linux/mm.h
+patching file include/linux/mm_types.h
+patching file mm/memory.c
+
+Applying patch re-preempt_rt_full-arm-coredump-fails-for-cpu-3e-3d-4.patch
+patching file arch/arm/kernel/process.c
+Hunk #1 succeeded at 496 (offset 7 lines).
+
+Applying patch mm-allow-slab-rt.patch
+patching file init/Kconfig
+
+Applying patch radix-tree-rt-aware.patch
+patching file include/linux/radix-tree.h
+patching file lib/radix-tree.c
+
+Applying patch panic-disable-random-on-rt.patch
+patching file kernel/panic.c
+
+Applying patch ipc-make-rt-aware.patch
+patching file ipc/mqueue.c
+patching file ipc/msg.c
+
+Applying patch ipc-mqueue-add-a-critical-section-to-avoid-a-deadlock.patch
+patching file ipc/mqueue.c
+
+Applying patch relay-fix-timer-madness.patch
+patching file kernel/relay.c
+
+Applying patch net-ipv4-route-use-locks-on-up-rt.patch
+patching file net/ipv4/route.c
+
+Applying patch workqueue-avoid-the-lock-in-cpu-dying.patch
+patching file kernel/workqueue.c
+
+Applying patch timers-prepare-for-full-preemption.patch
+patching file include/linux/timer.h
+patching file kernel/timer.c
+
+Applying patch timers-preempt-rt-support.patch
+patching file kernel/timer.c
+
+Applying patch timers-fix-timer-hotplug-on-rt.patch
+patching file kernel/timer.c
+
+Applying patch timers-mov-printk_tick-to-soft-interrupt.patch
+patching file kernel/timer.c
+
+Applying patch timer-delay-waking-softirqs-from-the-jiffy-tick.patch
+patching file kernel/timer.c
+
+Applying patch timers-avoid-the-base-null-otptimization-on-rt.patch
+patching file kernel/timer.c
+
+Applying patch rfc-printk-don-27t-call-printk_tick-in-printk_needs_cpu.patch
+patching file kernel/printk.c
+
+Applying patch hrtimers-prepare-full-preemption.patch
+patching file include/linux/hrtimer.h
+patching file kernel/hrtimer.c
+patching file kernel/itimer.c
+patching file kernel/posix-timers.c
+
+Applying patch hrtimer-fixup-hrtimer-callback-changes-for-preempt-r.patch
+patching file include/linux/hrtimer.h
+patching file kernel/hrtimer.c
+patching file kernel/sched.c
+patching file kernel/time/tick-sched.c
+patching file kernel/watchdog.c
+
+Applying patch peter_zijlstra-frob-hrtimer.patch
+patching file kernel/hrtimer.c
+
+Applying patch hrtimer-add-missing-debug_activate-aid-was-re-announce-3-0-6-rt17.patch
+patching file kernel/hrtimer.c
+
+Applying patch hrtimer-fix-reprogram-madness.patch
+patching file kernel/hrtimer.c
+
+Applying patch posix-timers-thread-posix-cpu-timers-on-rt.patch
+patching file include/linux/init_task.h
+patching file include/linux/sched.h
+Hunk #1 succeeded at 1360 (offset 5 lines).
+patching file init/main.c
+patching file kernel/fork.c
+patching file kernel/posix-cpu-timers.c
+
+Applying patch posix-timers-shorten-cpu-timers-thread.patch
+patching file kernel/posix-cpu-timers.c
+
+Applying patch posix-timers-avoid-wakeups-when-no-timers-are-active.patch
+patching file kernel/posix-cpu-timers.c
+
+Applying patch sched-delay-put-task.patch
+patching file include/linux/sched.h
+patching file kernel/fork.c
+
+Applying patch sched-limit-nr-migrate.patch
+patching file kernel/sched.c
+
+Applying patch sched-mmdrop-delayed.patch
+patching file include/linux/mm_types.h
+patching file include/linux/sched.h
+patching file kernel/fork.c
+patching file kernel/sched.c
+
+Applying patch sched-rt-mutex-wakeup.patch
+patching file include/linux/sched.h
+patching file kernel/sched.c
+
+Applying patch sched-prevent-idle-boost.patch
+patching file kernel/sched.c
+
+Applying patch sched-might-sleep-do-not-account-rcu-depth.patch
+patching file include/linux/rcupdate.h
+patching file kernel/sched.c
+
+Applying patch sched-load-balance-break-on-rq-contention.patch
+patching file kernel/sched_fair.c
+
+Applying patch sched-cond-resched.patch
+patching file kernel/sched.c
+
+Applying patch cond-resched-softirq-rt.patch
+patching file include/linux/sched.h
+patching file kernel/sched.c
+
+Applying patch sched-no-work-when-pi-blocked.patch
+patching file include/linux/sched.h
+patching file kernel/sched.c
+
+Applying patch cond-resched-lock-rt-tweak.patch
+patching file include/linux/sched.h
+
+Applying patch sched-disable-ttwu-queue.patch
+patching file kernel/sched_features.h
+
+Applying patch sched-disable-rt-group-sched-on-rt.patch
+patching file init/Kconfig
+
+Applying patch sched-ttwu-ensure-success-return-is-correct.patch
+patching file kernel/sched.c
+
+Applying patch stop_machine-convert-stop_machine_run-to-PREEMPT_RT.patch
+patching file kernel/stop_machine.c
+
+Applying patch stomp-machine-mark-stomper-thread.patch
+patching file include/linux/sched.h
+patching file kernel/stop_machine.c
+
+Applying patch stomp-machine-raw-lock.patch
+patching file kernel/stop_machine.c
+
+Applying patch hotplug-light-get-online-cpus.patch
+patching file include/linux/cpu.h
+patching file kernel/cpu.c
+
+Applying patch hotplug-sync_unplug-no-27-5cn-27-in-task-name.patch
+patching file kernel/cpu.c
+
+Applying patch re-migrate_disable-race-with-cpu-hotplug-3f.patch
+patching file kernel/cpu.c
+
+Applying patch sched-migrate-disable.patch
+patching file include/linux/preempt.h
+patching file include/linux/sched.h
+patching file include/linux/smp.h
+patching file kernel/sched.c
+patching file lib/smp_processor_id.c
+
+Applying patch hotplug-use-migrate-disable.patch
+patching file kernel/cpu.c
+
+Applying patch hotplug-call-cpu_unplug_begin-a-little-early.patch
+patching file kernel/cpu.c
+
+Applying patch ftrace-migrate-disable-tracing.patch
+patching file include/linux/ftrace_event.h
+patching file kernel/trace/trace.c
+patching file kernel/trace/trace_events.c
+patching file kernel/trace/trace_output.c
+
+Applying patch rt-tracing-show-padding-as-unsigned-short.patch
+patching file kernel/trace/trace_events.c
+
+Applying patch migrate-disable-rt-variant.patch
+patching file include/linux/preempt.h
+
+Applying patch peter_zijlstra-frob-migrate_disable.patch
+patching file kernel/sched.c
+
+Applying patch peter_zijlstra-frob-migrate_disable-2.patch
+patching file include/linux/preempt.h
+patching file include/linux/sched.h
+patching file include/linux/smp.h
+patching file kernel/sched.c
+patching file kernel/trace/trace.c
+patching file lib/smp_processor_id.c
+
+Applying patch sched-rt-fix-migrate_enable-thinko.patch
+patching file kernel/sched.c
+patching file kernel/sched_debug.c
+
+Applying patch sched-teach-migrate_disable-about-atomic-contexts.patch
+patching file include/linux/sched.h
+patching file kernel/sched.c
+
+Applying patch rt-sched-postpone-actual-migration-disalbe-to-schedule.patch
+patching file kernel/sched.c
+
+Applying patch rt-sched-do-not-compare-cpu-masks-in-scheduler.patch
+patching file kernel/sched.c
+
+Applying patch rt-sched-have-migrate_disable-ignore-bounded-threads.patch
+patching file kernel/sched.c
+
+Applying patch sched-clear-pf-thread-bound-on-fallback-rq.patch
+patching file kernel/sched.c
+
+Applying patch ftrace-crap.patch
+patching file kernel/trace/trace.c
+patching file kernel/trace/trace.h
+
+Applying patch rt-ring-buffer-convert-reader_lock-from-raw_spin_lock-into-spin_lock.patch
+patching file kernel/trace/ring_buffer.c
+
+Applying patch net-netif_rx_ni-migrate-disable.patch
+patching file net/core/dev.c
+
+Applying patch softirq-sanitize-softirq-pending.patch
+patching file include/linux/interrupt.h
+patching file kernel/softirq.c
+patching file kernel/time/tick-sched.c
+
+Applying patch lockdep-no-softirq-accounting-on-rt.patch
+patching file include/linux/irqflags.h
+patching file kernel/lockdep.c
+
+Applying patch mutex-no-spin-on-rt.patch
+patching file kernel/Kconfig.locks
+
+Applying patch softirq-local-lock.patch
+patching file include/linux/hardirq.h
+patching file include/linux/interrupt.h
+patching file include/linux/sched.h
+patching file init/main.c
+patching file kernel/softirq.c
+
+Applying patch softirq-export-in-serving-softirq.patch
+patching file kernel/softirq.c
+
+Applying patch harirq-h-define-softirq_count-as-oul-to-kill-build-warning.patch
+patching file include/linux/hardirq.h
+
+Applying patch softirq-fix-unplug-deadlock.patch
+patching file kernel/softirq.c
+
+Applying patch softirq-disable-softirq-stacks-for-rt.patch
+patching file arch/powerpc/kernel/irq.c
+patching file arch/powerpc/kernel/misc_32.S
+patching file arch/powerpc/kernel/misc_64.S
+patching file arch/sh/kernel/irq.c
+patching file arch/sparc/kernel/irq_64.c
+patching file arch/x86/kernel/entry_64.S
+patching file arch/x86/kernel/irq_32.c
+patching file arch/x86/kernel/irq_64.c
+patching file include/linux/interrupt.h
+
+Applying patch softirq-make-fifo.patch
+patching file kernel/softirq.c
+
+Applying patch tasklet-rt-prevent-tasklets-from-going-into-infinite-spin-in-rt.patch
+patching file include/linux/interrupt.h
+patching file kernel/softirq.c
+
+Applying patch local-vars-migrate-disable.patch
+patching file include/linux/percpu.h
+
+Applying patch md-raid5-percpu-handling-rt-aware.patch
+patching file drivers/md/raid5.c
+patching file drivers/md/raid5.h
+
+Applying patch rtmutex-lock-killable.patch
+patching file include/linux/rtmutex.h
+patching file kernel/rtmutex.c
+
+Applying patch rtmutex-futex-prepare-rt.patch
+patching file kernel/futex.c
+patching file kernel/rtmutex.c
+patching file kernel/rtmutex_common.h
+
+Applying patch rt-mutex-add-sleeping-spinlocks-support.patch
+patching file include/linux/rtmutex.h
+patching file kernel/futex.c
+patching file kernel/rtmutex.c
+patching file kernel/rtmutex_common.h
+
+Applying patch spinlock-types-separate-raw.patch
+patching file include/linux/rwlock_types.h
+patching file include/linux/spinlock_types.h
+patching file include/linux/spinlock_types_nort.h
+patching file include/linux/spinlock_types_raw.h
+
+Applying patch rtmutex-avoid-include-hell.patch
+patching file include/linux/rtmutex.h
+
+Applying patch rt-add-rt-spinlock-to-headers.patch
+patching file include/linux/rwlock_types_rt.h
+patching file include/linux/spinlock_types.h
+patching file include/linux/spinlock_types_rt.h
+
+Applying patch rt-add-rt-to-mutex-headers.patch
+patching file include/linux/mutex.h
+patching file include/linux/mutex_rt.h
+
+Applying patch rwsem-add-rt-variant.patch
+patching file include/linux/rwsem.h
+patching file include/linux/rwsem_rt.h
+patching file lib/Makefile
+
+Applying patch rt-add-rt-locks.patch
+patching file include/linux/rwlock_rt.h
+patching file include/linux/spinlock.h
+patching file include/linux/spinlock_api_smp.h
+patching file include/linux/spinlock_rt.h
+patching file kernel/Makefile
+patching file kernel/rt.c
+patching file kernel/spinlock.c
+patching file lib/spinlock_debug.c
+
+Applying patch tasklist-lock-fix-section-conflict.patch
+patching file include/linux/rwlock_types.h
+patching file kernel/fork.c
+
+Applying patch timer-handle-idle-trylock-in-get-next-timer-irq.patch
+patching file include/linux/spinlock_rt.h
+patching file kernel/rtmutex.c
+patching file kernel/timer.c
+
+Applying patch rcu-force-preempt-rcu-for-rt.patch
+patching file init/Kconfig
+
+Applying patch peter_zijlstra-frob-rcu.patch
+patching file kernel/rcutree_plugin.h
+
+Applying patch rcu-merge-rcu-bh-into-rcu-preempt-for-rt.patch
+patching file include/linux/rcupdate.h
+patching file include/linux/rcutree.h
+patching file kernel/rcupdate.c
+patching file kernel/rcutree.c
+
+Applying patch rcu-fix-macro-substitution.patch
+patching file include/linux/rcutree.h
+
+Applying patch rcu-tiny-merge-bh.patch
+patching file kernel/rcutiny.c
+
+Applying patch patch-to-introduce-rcu-bh-qs-where-safe-from-softirq.patch
+patching file include/linux/rcupdate.h
+patching file kernel/rcutree.c
+patching file kernel/rcutree.h
+patching file kernel/rcutree_plugin.h
+patching file kernel/softirq.c
+
+Applying patch rt-rcutree-warn-fix.patch
+patching file kernel/rcutree.c
+patching file kernel/rcutree.h
+
+Applying patch lglocks-rt.patch
+patching file include/linux/lglock.h
+
+Applying patch drivers-serial-cleanup-locking-for-rt.patch
+patching file drivers/tty/serial/8250.c
+
+Applying patch drivers-serial-call-flush_to_ldisc-when-the-irq-is-t.patch
+patching file drivers/tty/serial/8250.c
+patching file drivers/tty/tty_buffer.c
+
+Applying patch drivers-tty-fix-omap-lock-crap.patch
+patching file drivers/tty/serial/omap-serial.c
+Hunk #1 succeeded at 1044 with fuzz 2 (offset 98 lines).
+Hunk #2 succeeded at 1078 with fuzz 2 (offset 100 lines).
+
+Applying patch rt-serial-warn-fix.patch
+patching file drivers/tty/serial/8250.c
+
+Applying patch fs-namespace-preemption-fix.patch
+patching file fs/namespace.c
+
+Applying patch mm-protect-activate-switch-mm.patch
+patching file fs/exec.c
+patching file mm/mmu_context.c
+
+Applying patch fs-block-rt-support.patch
+patching file block/blk-core.c
+patching file fs/file.c
+
+Applying patch fs-ntfs-disable-interrupt-non-rt.patch
+patching file fs/ntfs/aops.c
+
+Applying patch x86-mce-timer-hrtimer.patch
+patching file arch/x86/kernel/cpu/mcheck/mce.c
+
+Applying patch x86-stackprot-no-random-on-rt.patch
+patching file arch/x86/include/asm/stackprotector.h
+
+Applying patch x86-use-gen-rwsem-spinlocks-rt.patch
+patching file arch/x86/Kconfig
+
+Applying patch x86-disable-debug-stack.patch
+patching file arch/x86/include/asm/page_64_types.h
+patching file arch/x86/kernel/cpu/common.c
+patching file arch/x86/kernel/dumpstack_64.c
+
+Applying patch workqueue-use-get-cpu-light.patch
+patching file kernel/workqueue.c
+
+Applying patch epoll-use-get-cpu-light.patch
+patching file fs/eventpoll.c
+
+Applying patch mm-vmalloc-use-get-cpu-light.patch
+patching file mm/vmalloc.c
+
+Applying patch workqueue-sanity.patch
+patching file include/linux/cpu.h
+patching file include/linux/workqueue.h
+patching file kernel/workqueue.c
+
+Applying patch workqueue-fix-PF_THREAD_BOUND.patch
+patching file kernel/workqueue.c
+
+Applying patch workqueue-hotplug-fix.patch
+patching file kernel/workqueue.c
+
+Applying patch workqueue-more-hotplug-fallout.patch
+patching file kernel/workqueue.c
+
+Applying patch debugobjects-rt.patch
+patching file lib/debugobjects.c
+
+Applying patch jump-label-rt.patch
+patching file include/linux/jump_label.h
+
+Applying patch skbufhead-raw-lock.patch
+patching file include/linux/netdevice.h
+patching file include/linux/skbuff.h
+patching file net/core/dev.c
+Hunk #5 succeeded at 6385 (offset 10 lines).
+Hunk #6 succeeded at 6654 (offset 10 lines).
+
+Applying patch perf-move-irq-work-to-softirq-in-rt.patch
+patching file arch/x86/kernel/irq_work.c
+patching file kernel/irq_work.c
+patching file kernel/timer.c
+
+Applying patch console-make-rt-friendly.patch
+patching file kernel/printk.c
+
+Applying patch printk-disable-migration-instead-of-preemption.patch
+patching file kernel/printk.c
+
+Applying patch power-use-generic-rwsem-on-rt.patch
+patching file arch/powerpc/Kconfig
+
+Applying patch power-disable-highmem-on-rt.patch
+patching file arch/powerpc/Kconfig
+
+Applying patch arm-disable-highmem-on-rt.patch
+patching file arch/arm/Kconfig
+Hunk #1 succeeded at 1669 (offset 1 line).
+
+Applying patch arm-at91-tclib-default-to-tclib-timer-for-rt.patch
+patching file drivers/misc/Kconfig
+
+Applying patch mips-disable-highmem-on-rt.patch
+patching file arch/mips/Kconfig
+
+Applying patch net-tx-action-avoid-livelock-on-rt.patch
+patching file net/core/dev.c
+
+Applying patch ping-sysrq.patch
+patching file Documentation/sysrq.txt
+patching file include/net/netns/ipv4.h
+patching file net/ipv4/icmp.c
+patching file net/ipv4/sysctl_net_ipv4.c
+
+Applying patch kgb-serial-hackaround.patch
+patching file drivers/tty/serial/8250.c
+patching file include/linux/kdb.h
+patching file kernel/debug/kdb/kdb_io.c
+
+Applying patch sysfs-realtime-entry.patch
+patching file kernel/ksysfs.c
+
+Applying patch peter_zijlstra-re-_3_0-rt4.patch
+patching file arch/x86/kernel/process_32.c
+patching file include/linux/sched.h
+patching file mm/memory.c
+
+Applying patch ipc-sem-rework-semaphore-wakeups.patch
+patching file ipc/sem.c
+
+Applying patch preempt-rt-allow-immediate-magic-sysrq-output-for-preempt_rt_full.patch
+patching file drivers/tty/serial/cpm_uart/cpm_uart_core.c
+patching file drivers/tty/sysrq.c
+patching file include/linux/sysrq.h
+patching file kernel/printk.c
+patching file lib/Kconfig.debug
+
+Applying patch x86-kvm-require-const-tsc-for-rt.patch
+patching file arch/x86/kvm/x86.c
+
+Applying patch scsi-fcoe-rt-aware.patch
+patching file drivers/scsi/fcoe/fcoe.c
+patching file drivers/scsi/fcoe/fcoe_ctlr.c
+patching file drivers/scsi/libfc/fc_exch.c
+
+Applying patch x86-crypto-reduce-preempt-disabled-regions.patch
+patching file arch/x86/crypto/aesni-intel_glue.c
+
+Applying patch dm-make-rt-aware.patch
+patching file drivers/md/dm.c
+
+Applying patch wait-simple-version.patch
+patching file include/linux/wait-simple.h
+patching file kernel/Makefile
+patching file kernel/wait-simple.c
+
+Applying patch acpi-gpe-use-wait-simple.patch
+patching file drivers/acpi/ec.c
+patching file drivers/acpi/internal.h
+
+Applying patch cpumask-disable-offstack-on-rt.patch
+patching file arch/x86/Kconfig
+patching file lib/Kconfig
+
+Applying patch kconfig-disable-a-few-options-rt.patch
+patching file arch/Kconfig
+patching file drivers/net/Kconfig
+patching file mm/Kconfig
+
+Applying patch kconfig-preempt-rt-full.patch
+patching file init/Makefile
+patching file kernel/Kconfig.preempt
+patching file scripts/mkcompile_h
+
+Now at patch kconfig-preempt-rt-full.patch
