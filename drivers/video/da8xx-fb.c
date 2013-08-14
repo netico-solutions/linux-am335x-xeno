@@ -290,6 +290,34 @@ static struct da8xx_panel known_lcd_panels[] = {
 		.pxl_clk = 9000000,
 		.invert_pxl_clk = 0,
 	},
+	/* Variscite Panel */
+	[4] = {
+		.name = "VAR-WVGA",
+		.width = 800,
+		.height = 480,
+		.hfp = 29,
+		.hbp = 17,
+		.hsw = 28,
+		.vfp = 13,
+		.vbp = 20,
+		.vsw = 3,
+		.pxl_clk = 28000000,
+		.invert_pxl_clk = 0,
+	},
+	/* Variscite CTW6120 Panel */
+	[5] = {
+		.name = "VAR-WVGA-CTW",
+		.width = 800,
+		.height = 480,
+		.hfp = 129,
+		.hbp = 28,
+		.hsw = 28,
+		.vfp = 32,
+		.vbp = 20,
+		.vsw = 3,
+		.pxl_clk = 33000000,
+		.invert_pxl_clk = 0,
+	},
 };
 
 static inline bool is_raster_enabled(void)
