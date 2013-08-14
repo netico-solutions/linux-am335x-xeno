@@ -440,6 +440,10 @@
 #define INTCPS_MAX_NR_REGS_REQ	4
 #define INTCPS_MAX_NR_IRQS	128
 
+#if defined(CONFIG_ARCH_OMAP4) && defined(CONFIG_SMP)
+#include <asm/smp_twd.h>
+#endif /* CONFIG_ARCH_OMAP4 */
+
 #include <mach/hardware.h>
 
 #ifdef CONFIG_FIQ

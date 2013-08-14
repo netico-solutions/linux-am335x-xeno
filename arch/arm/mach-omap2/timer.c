@@ -36,6 +36,9 @@
 #include <linux/clocksource.h>
 #include <linux/clockchips.h>
 #include <linux/slab.h>
+#include <linux/ipipe.h>
+#include <linux/export.h>
+#include <linux/ipipe_tickdev.h>
 
 #include <asm/mach/time.h>
 #include <plat/dmtimer.h>
@@ -84,11 +87,21 @@ static u32 sys_timer_reserved;
 static struct omap_dm_timer clkev;
 static struct clock_event_device clockevent_gpt;
 
+static void omap2_gp_timer_ack(void)
+{
+	__omap_dm_timer_write_status(&clkev, OMAP_TIMER_INT_OVERFLOW);
+	__omap_dm_timer_read_status(&clkev);
+}
+
 static irqreturn_t omap2_gp_timer_interrupt(int irq, void *dev_id)
 {
 	struct clock_event_device *evt = &clockevent_gpt;
 
-	__omap_dm_timer_write_status(&clkev, OMAP_TIMER_INT_OVERFLOW);
+	if (!clockevent_ipipe_stolen(evt))
+		omap2_gp_timer_ack();
+
+	if (num_online_cpus() == 1)
+		__ipipe_tsc_update();
 
 	evt->event_handler(evt);
 	return IRQ_HANDLED;
@@ -104,7 +117,7 @@ static int omap2_gp_timer_set_next_event(unsigned long cycles,
 					 struct clock_event_device *evt)
 {
 	__omap_dm_timer_load_start(&clkev, OMAP_TIMER_CTRL_ST,
-						0xffffffff - cycles, 1);
+				   0xffffffff - cycles, 0);
 
 	return 0;
 }
@@ -114,7 +127,7 @@ static void omap2_gp_timer_set_mode(enum clock_event_mode mode,
 {
 	u32 period;
 
-	__omap_dm_timer_stop(&clkev, 1, clkev.rate);
+	__omap_dm_timer_stop(&clkev, 0, clkev.rate);
 
 	switch (mode) {
 	case CLOCK_EVT_MODE_PERIODIC:
@@ -122,10 +135,10 @@ static void omap2_gp_timer_set_mode(enum clock_event_mode mode,
 		period -= 1;
 		/* Looks like we need to first set the load value separately */
 		__omap_dm_timer_write(&clkev, OMAP_TIMER_LOAD_REG,
-					0xffffffff - period, 1);
+				      0xffffffff - period, 0);
 		__omap_dm_timer_load_start(&clkev,
-					OMAP_TIMER_CTRL_AR | OMAP_TIMER_CTRL_ST,
-						0xffffffff - period, 1);
+					   OMAP_TIMER_CTRL_AR | OMAP_TIMER_CTRL_ST,
+					   0xffffffff - period, 0);
 		break;
 	case CLOCK_EVT_MODE_ONESHOT:
 		break;
@@ -135,6 +148,12 @@ static void omap2_gp_timer_set_mode(enum clock_event_mode mode,
 		break;
 	}
 }
+
+#ifdef CONFIG_IPIPE
+static struct ipipe_timer omap_itimer = {
+	.ack = omap2_gp_timer_ack,
+};
+#endif /* CONFIG_IPIPE */
 
 static struct clock_event_device clockevent_gpt = {
 	.name		= "gp timer",
@@ -265,14 +284,15 @@ static int __init omap_dm_timer_init_one(struct omap_dm_timer *timer,
 		res = omap_dm_timer_switch_src(oh, timer, fck_source);
 	}
 	__omap_dm_timer_init_regs(timer);
+#ifndef CONFIG_IPIPE
 	__omap_dm_timer_reset(timer, 1, 1);
-
+#else /* CONFIG_IPIPE */
+    __omap_dm_timer_reset(timer, 0, 1);
+#endif /* CONFIG_IPIPE */
+    timer->posted = posted;
+    
 	if (posted)
 		__omap_dm_timer_enable_posted(timer);
-
-	/* Check that the intended posted configuration matches the actual */
-	if (posted != timer->posted)
-		return -EINVAL;
 
 	timer->rate = clk_get_rate(timer->fclk);
 
@@ -280,6 +300,17 @@ static int __init omap_dm_timer_init_one(struct omap_dm_timer *timer,
 
 	return res;
 }
+
+#ifdef CONFIG_IPIPE
+static struct __ipipe_tscinfo __maybe_unused tsc_info = {
+	.type = IPIPE_TSC_TYPE_FREERUNNING,
+	.u = {
+		{
+			.mask = 0xffffffff,
+		},
+	},
+};
+#endif /* CONFIG_IPIPE */
 
 static void __init omap2_gp_clockevent_init(int gptimer_id,
 						const char *fck_source)
@@ -295,8 +326,13 @@ static void __init omap2_gp_clockevent_init(int gptimer_id,
 	 */
 	__omap_dm_timer_override_errata(&clkev, OMAP_TIMER_ERRATA_I103_I767);
 
+#ifndef CONFIG_IPIPE
 	res = omap_dm_timer_init_one(&clkev, gptimer_id, fck_source,
 				OMAP_TIMER_POSTED);
+#else /* CONFIG_IPIPE */
+	res = omap_dm_timer_init_one(&clkev, gptimer_id, fck_source, 
+	            OMAP_TIMER_NONPOSTED);
+#endif /* CONFIG_IPIPE */
 	BUG_ON(res);
 
 	omap2_gp_timer_irq.dev_id = (void *)&clkev;
@@ -313,10 +349,21 @@ static void __init omap2_gp_clockevent_init(int gptimer_id,
 		/* Timer internal resynch latency. */
 
 	clockevent_gpt.cpumask = cpumask_of(0);
+
+#ifdef CONFIG_IPIPE
+	if (num_online_cpus() == 1) {
+		omap_itimer.irq = clkev.irq;
+		omap_itimer.min_delay_ticks = 3;
+		clockevent_gpt.ipipe_timer = &omap_itimer;
+	}
+#endif /* CONFIG_IPIPE */
+
 	clockevents_register_device(&clockevent_gpt);
 
 	pr_info("OMAP clockevent source: GPTIMER%d at %lu Hz\n",
 		gptimer_id, clkev.rate);
+
+
 }
 
 /* Clocksource code */
@@ -375,6 +422,8 @@ unsigned long long notrace sched_clock(void)
 	return cyc_to_sched_clock(&cd, cyc, (u32)~0);
 }
 
+extern void __init omap2plus_pic_muter_register(void);
+
 /* Setup free-running counter for clocksource */
 static void __init omap2_gp_clocksource_init(int gptimer_id,
 						const char *fck_source)
@@ -383,16 +432,40 @@ static void __init omap2_gp_clocksource_init(int gptimer_id,
 
 	clksrc.errata = omap_dm_timer_get_errata();
 
+#ifndef CONFIG_IPIPE
 	res = omap_dm_timer_init_one(&clksrc, gptimer_id, fck_source,
 				OMAP_TIMER_NONPOSTED);
+#else /* CONFIG_IPIPE */
+    res = omap_dm_timer_init_one(&clksrc, gptimer_id, fck_source,
+				OMAP_TIMER_POSTED);
+#endif /* CONFIG_IPIPE */
 	BUG_ON(res);
 
 	pr_info("OMAP clocksource: GPTIMER%d at %lu Hz\n",
 		gptimer_id, clksrc.rate);
 
+#if defined(CONFIG_IPIPE)
+	if (num_online_cpus() == 1) {
+		tsc_info.freq = clksrc.rate;
+		tsc_info.counter_vaddr =
+			(unsigned long)clksrc.io_base + (OMAP_TIMER_COUNTER_REG & 0xff);
+		tsc_info.u.counter_paddr =
+			clksrc.phys_base + (OMAP_TIMER_COUNTER_REG & 0xff);
+		__ipipe_tsc_register(&tsc_info);
+	}
+
+	omap2plus_pic_muter_register();
+#endif
+
+#ifndef CONFIG_IPIPE
 	__omap_dm_timer_load_start(&clksrc,
 			OMAP_TIMER_CTRL_ST | OMAP_TIMER_CTRL_AR, 0,
 			OMAP_TIMER_NONPOSTED);
+#else /* CONFIG_IPIPE */
+    __omap_dm_timer_load_start(&clksrc,
+			OMAP_TIMER_CTRL_ST | OMAP_TIMER_CTRL_AR, 0,
+			OMAP_TIMER_POSTED);
+#endif /* CONFIG_IPIPE */
 	init_sched_clock(&cd, dmtimer_update_sched_clock, 32, clksrc.rate);
 
 	if (clocksource_register_hz(&clocksource_gpt, clksrc.rate))
@@ -451,7 +524,11 @@ OMAP_SYS_TIMER(2)
 #endif
 
 #ifdef CONFIG_ARCH_OMAP3
+#ifndef CONFIG_IPIPE
 OMAP_SYS_TIMER_INIT(3, 1, OMAP3_CLKEV_SOURCE, 2, OMAP3_MPU_SOURCE)
+#else
+OMAP_SYS_TIMER_INIT(3, 2, OMAP3_CLKEV_SOURCE, 3, OMAP3_MPU_SOURCE)
+#endif
 OMAP_SYS_TIMER(3)
 OMAP_SYS_TIMER_INIT(3_secure, OMAP3_SECURE_TIMER, OMAP3_CLKEV_SOURCE,
 			2, OMAP3_MPU_SOURCE)

@@ -1,0 +1,1 @@
+/home/nenad/workspace/linux/xenomai-2.6.2.1/ksrc/skins/native/snippets/local_heap.c
