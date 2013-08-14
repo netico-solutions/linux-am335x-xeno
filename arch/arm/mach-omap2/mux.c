@@ -844,7 +844,8 @@ static void __init omap_mux_free_names(struct omap_mux *m)
 static int __init omap_mux_late_init(void)
 {
 	struct omap_mux_partition *partition;
-	int ret;
+	int ret = -1;
+	int irq = -1;
 
 	list_for_each_entry(partition, &mux_partitions, node) {
 		struct omap_mux_entry *e, *tmp;
@@ -865,12 +866,17 @@ static int __init omap_mux_late_init(void)
 		}
 	}
 
-	ret = request_irq(omap_prcm_event_to_irq("io"),
-		omap_hwmod_mux_handle_irq, IRQF_SHARED | IRQF_NO_SUSPEND,
-			"hwmod_io", omap_mux_late_init);
-
+    irq = omap_prcm_event_to_irq("io");
+	
+	if(irq >= 0)
+	{
+		ret = request_irq(irq,
+			omap_hwmod_mux_handle_irq, IRQF_SHARED | IRQF_NO_SUSPEND,
+				"hwmod_io", omap_mux_late_init);
+	}
+	
 	if (ret)
-		pr_warning("mux: Failed to setup hwmod io irq %d\n", ret);
+		pr_warning("mux: Failed to setup hwmod io irq %d\n", irq);
 
 	omap_mux_dbg_init();
 
