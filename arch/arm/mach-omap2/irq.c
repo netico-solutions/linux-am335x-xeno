@@ -245,7 +245,14 @@ out:
 		irqnr &= ACTIVEIRQ_MASK;
 
 		if (irqnr)
-			handle_IRQ(irqnr, regs);
+		{
+#ifdef CONFIG_IPIPE
+			ipipe_handle_multi_irq(irqnr, regs);
+#else
+ 			handle_IRQ(irqnr, regs);
+#endif
+		}
+		
 	} while (irqnr);
 }
 
