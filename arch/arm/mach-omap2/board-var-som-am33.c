@@ -587,12 +587,53 @@ static void mfd_tscadc_init(void)
 		pr_err("failed to register touchscreen device\n");
 }
 
+#define UART_0_ENABLE                   1
+#define UART_1_ENABLE                   1
+#define UART_2_ENABLE                   1
+#define UART_3_ENABLE                   0
+#define UART_4_ENABLE                   1
+#define UART_5_ENABLE                   1
+
 static void uart_init(void)
 {
+    struct omap_board_data board_data;
+    
 	setup_pin_mux(uart0_pin_mux);
 	setup_pin_mux(uart3_pin_mux);
 
-	omap_serial_init();
+    board_data.flags    = 0;
+    board_data.pads     = NULL;
+    board_data.pads_cnt = 0;
+#if (0 != UART_0_ENABLE)
+    board_data.id       = 0;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
+#if (0 != UART_1_ENABLE)
+    board_data.id       = 1;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
+#if (0 != UART_2_ENABLE)
+    board_data.id       = 2;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
+#if (0 != UART_3_ENABLE)
+    board_data.id       = 3;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
+#if (0 != UART_4_ENABLE)
+    board_data.id       = 4;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
+#if (0 != UART_5_ENABLE)
+    board_data.id       = 5;
+    printk(KERN_INFO "OMAP UART: init %d\n", board_data.id);
+    omap_serial_init_port(&board_data, NULL);
+#endif
 }
 
 #define VAR_SOM_GMII1_RST_GPIO   GPIO_TO_PIN(2, 19)
