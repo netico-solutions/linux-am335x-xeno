@@ -137,6 +137,7 @@
 #include <linux/mutex.h>
 #include <linux/spinlock.h>
 #include <linux/slab.h>
+#include <linux/export.h>
 
 #include "common.h"
 #include <plat/cpu.h>
@@ -2036,6 +2037,8 @@ struct omap_hwmod *omap_hwmod_lookup(const char *name)
 
 	return oh;
 }
+
+EXPORT_SYMBOL_GPL(omap_hwmod_lookup);
 
 /**
  * omap_hwmod_for_each - call function for each registered omap_hwmod

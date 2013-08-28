@@ -88,6 +88,7 @@
 #include <linux/pm_runtime.h>
 #include <linux/of.h>
 #include <linux/notifier.h>
+#include <linux/export.h>
 
 #include <plat/omap_device.h>
 #include <plat/omap_hwmod.h>
@@ -311,7 +312,6 @@ static void _add_hwmod_clocks_clkdev(struct omap_device *od,
 	for (i = 0; i < oh->opt_clks_cnt; i++)
 		_add_clkdev(od, oh->opt_clks[i].role, oh->opt_clks[i].clk);
 }
-
 
 static struct dev_pm_domain omap_device_pm_domain;
 
@@ -595,6 +595,8 @@ void omap_device_delete(struct omap_device *od)
 	kfree(od);
 }
 
+EXPORT_SYMBOL_GPL(omap_device_delete);
+
 /**
  * omap_device_build - build and register an omap_device with one omap_hwmod
  * @pdev_name: name of the platform_device driver to use
@@ -627,6 +629,8 @@ struct platform_device *omap_device_build(const char *pdev_name, int pdev_id,
 				    pdata_len, pm_lats, pm_lats_cnt,
 				    is_early_device);
 }
+
+EXPORT_SYMBOL_GPL(omap_device_build);
 
 /**
  * omap_device_build_ss - build and register an omap_device with multiple hwmods
@@ -862,6 +866,8 @@ int omap_device_enable(struct platform_device *pdev)
 	return ret;
 }
 
+EXPORT_SYMBOL_GPL(omap_device_enable);
+
 /**
  * omap_device_idle - idle an omap_device
  * @od: struct omap_device * to idle
@@ -931,6 +937,8 @@ int omap_device_shutdown(struct platform_device *pdev)
 
 	return ret;
 }
+
+EXPORT_SYMBOL_GPL(omap_device_shutdown);
 
 /**
  * omap_device_align_pm_lat - activate/deactivate device to match wakeup lat lim
@@ -1011,6 +1019,8 @@ void __iomem *omap_device_get_rt_va(struct omap_device *od)
 
 	return omap_hwmod_get_mpu_rt_va(od->hwmods[0]);
 }
+
+EXPORT_SYMBOL_GPL(omap_device_get_rt_va);
 
 /**
  * omap_device_get_by_hwmod_name() - convert a hwmod name to
@@ -1105,6 +1115,8 @@ int omap_device_disable_clocks(struct omap_device *od)
 	return 0;
 }
 
+EXPORT_SYMBOL_GPL(omap_device_disable_clocks);
+
 /**
  * omap_device_enable_clocks - enable all main and interface clocks
  * @od: struct omap_device *od
@@ -1122,6 +1134,8 @@ int omap_device_enable_clocks(struct omap_device *od)
 	/* XXX pass along return value here? */
 	return 0;
 }
+
+EXPORT_SYMBOL_GPL(omap_device_enable_clocks);
 
 /**
  * omap_device_reset - reset the module.
@@ -1143,6 +1157,8 @@ int omap_device_reset(struct device *dev)
 	}
 	return r;
 }
+
+EXPORT_SYMBOL_GPL(omap_device_reset);
 
 
 struct device omap_device_parent = {
