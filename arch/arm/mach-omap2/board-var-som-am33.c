@@ -68,6 +68,11 @@
 #include "devices.h"
 #include "hsmmc.h"
 
+#define KM_CONFIG_SENIS_TEST                    1
+
+#define KM_CONFIG_WL12XX                        0
+#define KM_CONFIG_BACKLIGHT_GENERIC             1
+
 #define VAR_LCD_UTM     0
 #define VAR_LCD_CTW6120 1
 
@@ -300,6 +305,8 @@ static struct pinmux_config lcdc_pin_mux[] = {
 	{"lcd_hsync.lcd_hsync",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
 	{"lcd_pclk.lcd_pclk",		OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
 	{"lcd_ac_bias_en.lcd_ac_bias_en", OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
+	{"gpmc_a3.gpio1_19",        OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
+	{"gpmc_a5.gpio1_21",        OMAP_MUX_MODE0 | AM33XX_PIN_OUTPUT},
 	{NULL, 0},
 };
 
@@ -459,6 +466,9 @@ const char *get_var_am33_som_rev_str(void)
 #define VAR_SOM_BT_PMENA_REV_1_0_GPIO     GPIO_TO_PIN(3, 4)
 #define VAR_SOM_BT_PMENA_GPIO             GPIO_TO_PIN(3, 9)
 
+#define VAR_SOM_LCD_BL_CTRL                 GPIO_TO_PIN(1, 19)
+#define VAR_SOM_LCD_DISP_STBY               GPIO_TO_PIN(1, 21)
+
 static struct wl12xx_platform_data var_som_am33_wlan_data = {
 	.irq = OMAP_GPIO_IRQ(VAR_SOM_WLAN_IRQ_GPIO),
 	.wlan_enable_gpio = VAR_SOM_WLAN_PMENA_GPIO,
@@ -500,6 +510,7 @@ static struct pinmux_config wl12xx_pin_mux_var_som[] = {
 };
 
 /* Setup pwm-backlight */
+#if (KM_CONFIG_BACKLIGHT_GENERIC == 0)
 static struct platform_device am335x_backlight = {
 	.name           = "pwm-backlight",
 	.id             = -1,
@@ -507,6 +518,7 @@ static struct platform_device am335x_backlight = {
 		.platform_data = &am335x_backlight_data,
 	},
 };
+#endif
 
 static struct pwmss_platform_data pwm_pdata = {
 	.version = PWM_VERSION_1,
@@ -514,11 +526,27 @@ static struct pwmss_platform_data pwm_pdata = {
 
 static int __init backlight_init(void)
 {
+#if (KM_CONFIG_BACKLIGHT_GENERIC == 1)
+    int status;
+    
+    pr_info("VAR_SOM_AM33: Backlight gpio init\n");
+    
+    omap_mux_init_gpio(VAR_SOM_LCD_BL_CTRL, OMAP_PIN_OUTPUT);
+	status = gpio_request_one(VAR_SOM_LCD_BL_CTRL, GPIOF_OUT_INIT_HIGH, 
+	    "lcd_bl_ctrl");
+
+	if (status) {
+		pr_err("Error requesting LCD backlight control gpio: %d\n", status);
+	}
+	gpio_set_value(VAR_SOM_LCD_BL_CTRL, 1);
+	gpio_export(VAR_SOM_LCD_BL_CTRL, 0);
+#else
+
 	if (var_lcd_index == VAR_LCD_CTW6120)
 		am335x_backlight_data.lth_brightness = 59;
 
 	platform_device_register(&am335x_backlight);
-
+#endif
 	return 0;
 }
 late_initcall(backlight_init);
@@ -534,6 +562,7 @@ static void haptics_init(void)
 
 static void d_can_init(void)
 {
+    pr_info("VAR_SOM_AM33: CAN init\n");
 	setup_pin_mux(d_can0_pin_mux);
 	am33xx_d_can_init(0);
 }
@@ -559,6 +588,8 @@ static void lcdc_init(void)
 {
 	struct da8xx_lcdc_platform_data* lcdc_data;
 
+    pr_info("VAR_SOM_AM33: LCDC init\n");
+    
 	if (var_lcd_index == VAR_LCD_CTW6120)
 		lcdc_data = &VAR_LCD_CTW_pdata;
 	else
@@ -580,15 +611,21 @@ static void lcdc_init(void)
 
 static void mfd_tscadc_init(void)
 {
+#if (KM_CONFIG_SENIS_TEST == 1)
+    pr_info("VAR_SOM_AM33: not setting MFD TSCADC (touchscreen) device\n");
+#else
 	int err;
 
 	err = am33xx_register_mfd_tscadc(&tscadc);
 	if (err)
 		pr_err("failed to register touchscreen device\n");
+#endif
 }
 
 static void uart_init(void)
 {
+    pr_info("VAR_SOM_AM33: UART init\n");
+    
 	setup_pin_mux(uart0_pin_mux);
 	setup_pin_mux(uart3_pin_mux);
 
@@ -601,6 +638,8 @@ static void rmii1_init(void)
 {
 	int status;
 
+    pr_info("VAR_SOM_AM33: RMII1 init\n");
+    
 	omap_mux_init_gpio(VAR_SOM_GMII1_RST_GPIO, OMAP_PIN_OUTPUT);
 
 	status = gpio_request_one(VAR_SOM_GMII1_RST_GPIO,
@@ -635,8 +674,11 @@ static struct gpio rgmii_strapping_gpios[] __initdata = {
 
 static void rgmii2_init(void)
 {
+#if (KM_CONFIG_SENIS_TEST == 1)
+    pr_info("VAR_SOM_AM33: not setting RGMII2\n");
+#else    
 	int status;
-
+	
 	setup_pin_mux(rgmii2_strapping_pin_mux);
 
 	omap_mux_init_gpio(VAR_SOM_RGMII2_RST_GPIO, OMAP_PIN_OUTPUT);
@@ -666,6 +708,7 @@ static void rgmii2_init(void)
 	setup_pin_mux(rgmii2_pin_mux);
 
 	return;
+#endif
 }
 
 /* NAND partition information
@@ -742,6 +785,8 @@ static void som_nand_init(void)
 		{ NULL, 0 },
 		{ NULL, 0 },
 	};
+	
+	pr_info("VAR_SOM_AM33: NAND init\n");
 
 	setup_pin_mux(nand_pin_mux);
 	pdata = omap_nand_init(am335x_nand_partitions,
@@ -761,6 +806,8 @@ static void som_nand_init(void)
 /* Setup McASP 1 */
 static void mcasp1_init(void)
 {
+    pr_info("VAR_SOM_AM33: MCASP init\n");
+    
 	/* Configure McASP */
 	setup_pin_mux(mcasp1_pin_mux);
 	am335x_register_mcasp(&var_am335x_som_snd_data1, 0);
@@ -770,6 +817,8 @@ static void mcasp1_init(void)
 /* WLAN */
 static void mmc1_wl12xx_init(void)
 {
+    pr_info("VAR_SOM_AM33: mmc1_wl12xx_init\n");
+    
 	setup_pin_mux(mmc1_wl12xx_pin_mux);
 
 	am335x_mmc[1].mmc = 2;
@@ -787,6 +836,8 @@ static void mmc1_wl12xx_init(void)
 
 static void uart1_wl12xx_init(void)
 {
+    pr_info("VAR_SOM_AM33: uart1_wl12xx_init\n");
+    
 	setup_pin_mux(uart1_wl12xx_pin_mux);
 }
 
@@ -893,6 +944,9 @@ static int wl12xx_set_power(struct device *dev, int slot, int on, int vdd)
 
 static void wl12xx_init(void)
 {
+#if (KM_CONFIG_WL12XX == 1) 
+    pr_info("VAR_SOM_AM33: not setting wl12xx\n");
+#else
 	struct device *dev;
 	struct omap_mmc_platform_data *pdata;
 	int ret;
@@ -934,6 +988,7 @@ static void wl12xx_init(void)
 	pdata->slots[0].set_power = wl12xx_set_power;
 out:
 	return;
+#endif
 }
 
 static void mmc0_init(void)
@@ -977,6 +1032,8 @@ static int var_som_ksz9021_phy_fixup(struct phy_device *phydev)
 static void ethernet_init(void)
 {
 	int mode;
+	
+	pr_info("VAR_SOM_AM33: Ethernet init\n");
 
 	/* Setup fallback MAC addresses, used only if eFuse MACID is invalid.
 	 */
@@ -1093,6 +1150,8 @@ static struct i2c_board_info __initdata var_som_i2c1_boardinfo[] = {
 
 static void i2c1_init(void)
 {
+    pr_info("VAR_SOM_AM33: I2C init\n");
+    
 	setup_pin_mux(i2c1_pin_mux);
 
 	omap_register_i2c_bus(2, 100, var_som_i2c1_boardinfo,
@@ -1110,6 +1169,8 @@ static void __init clkout2_enable(void)
 {
 	struct clk *ck_32;
 	void __iomem *base;
+	
+	pr_info("VAR_SOM_AM33: clockout2 init for WLAN\n");
 
 	base = ioremap(AM33XX_RTC_BASE, SZ_4K);
 
