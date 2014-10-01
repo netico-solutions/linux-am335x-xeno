@@ -255,6 +255,13 @@ static struct pinmux_config uart3_pin_mux[] = {
 	{NULL, 0},
 };
 
+/* UART5 */
+static struct pinmux_config uart5_pin_mux[] = {
+    {"mdio_clk.uart5_txd",  OMAP_MUX_MODE2 | AM33XX_PULL_ENBL},
+    {"mdio_data.uart5_rxd", OMAP_MUX_MODE2 | AM33XX_PIN_INPUT_PULLUP},
+    {NULL, 0}
+};
+
 static struct pinmux_config haptics_pin_mux[] = {
 	{"spi0_sclk.ehrpwm0A",		OMAP_MUX_MODE3 |
 		AM33XX_PIN_OUTPUT},
@@ -562,9 +569,13 @@ static void haptics_init(void)
 
 static void d_can_init(void)
 {
+#if (KM_CONFIG_SENIS_TEST == 1)
+    pr_info("VAR_SOM_AM33: not initializing CAN\n");
+#else
     pr_info("VAR_SOM_AM33: CAN init\n");
 	setup_pin_mux(d_can0_pin_mux);
 	am33xx_d_can_init(0);
+#endif
 }
 
 static int __init conf_disp_pll(int rate)
@@ -612,7 +623,7 @@ static void lcdc_init(void)
 static void mfd_tscadc_init(void)
 {
 #if (KM_CONFIG_SENIS_TEST == 1)
-    pr_info("VAR_SOM_AM33: not setting MFD TSCADC (touchscreen) device\n");
+    pr_info("VAR_SOM_AM33: not initializing MFD TSCADC (touchscreen) device\n");
 #else
 	int err;
 
@@ -628,7 +639,8 @@ static void uart_init(void)
     
 	setup_pin_mux(uart0_pin_mux);
 	setup_pin_mux(uart3_pin_mux);
-
+    setup_pin_mux(uart5_pin_mux);
+    
 	omap_serial_init();
 }
 
@@ -675,7 +687,7 @@ static struct gpio rgmii_strapping_gpios[] __initdata = {
 static void rgmii2_init(void)
 {
 #if (KM_CONFIG_SENIS_TEST == 1)
-    pr_info("VAR_SOM_AM33: not setting RGMII2\n");
+    pr_info("VAR_SOM_AM33: not initializing RGMII2\n");
 #else    
 	int status;
 	
