@@ -408,6 +408,8 @@ void __init omap_serial_board_init(struct omap_uart_port_info *info)
 		bdata.flags = 0;
 		bdata.pads = NULL;
 		bdata.pads_cnt = 0;
+		
+		pr_info("MACH OMAP2: initializing %d UART\n", uart->num);
 
 		if (cpu_is_omap44xx() || (cpu_is_omap34xx() &&
 							!cpu_is_am33xx()))
