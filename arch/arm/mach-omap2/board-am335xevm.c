@@ -209,7 +209,7 @@ static struct snd_platform_data am335x_evm_sk_snd_data1 = {
 			omap_pm_get_dev_context_loss_count,
 };
 
-static struct omap2_hsmmc_info am335x_mmc[] __initdata = {
+static struct omap2_hsmmc_info am335x_mmc[] = {
 	{
 		.mmc            = 1,
 		.caps           = MMC_CAP_4_BIT_DATA,

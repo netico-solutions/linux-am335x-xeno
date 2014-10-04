@@ -888,6 +888,13 @@ static __devinit int tps65910_probe(struct platform_device *pdev)
 				DEVCTRL_CK32K_CTRL_MASK);
 	}
 #endif
+#ifdef CONFIG_MACH_TESLAMETER_3MH
+	if (machine_is_teslameter_3mh()) {
+		/* 32-kHz clock source is the crystal oscillator */
+		tps65910_clear_bits(pmic->mfd, TPS65910_DEVCTRL,
+				DEVCTRL_CK32K_CTRL_MASK);
+	}
+#endif
 
 	switch(tps65910_chip_id(tps65910)) {
 	case TPS65910:

@@ -49,6 +49,11 @@ static void tscadc_idle_config(struct ti_tscadc_dev *config)
 		idleconfig |= TSCADC_STEPCONFIG_XNN;
 	else
 #endif
+#ifdef CONFIG_MACH_TESLAMETER_3MH
+    if (machine_is_teslameter_3mh())
+        idleconfig |= TSCADC_STEPCONFIG_XNN;
+	else
+#endif
 		idleconfig |= TSCADC_STEPCONFIG_YPN;
 
 	tscadc_writel(config, TSCADC_REG_IDLECONFIG, idleconfig);
@@ -57,10 +62,10 @@ static void tscadc_idle_config(struct ti_tscadc_dev *config)
 static int __devinit ti_tscadc_probe(struct platform_device *pdev)
 {
 	struct ti_tscadc_dev	*tscadc;
-	struct resource		*res;
-	struct clk		*clk;
+	struct resource		    *res;
+	struct clk		        *clk;
 	struct mfd_tscadc_board	*pdata = pdev->dev.platform_data;
-	struct mfd_cell		*cell;
+	struct mfd_cell		    *cell;
 	int			err, ctrl, children = 0;
 	int			clk_value, clock_rate;
 	int			tsc_wires = 0, adc_channels = 0, total_channels;

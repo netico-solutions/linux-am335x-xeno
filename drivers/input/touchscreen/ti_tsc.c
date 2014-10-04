@@ -77,6 +77,12 @@ static void tsc_step_config(struct tscadc *ts_dev)
 				TSCADC_STEPCONFIG_YPN;
 		else
 #endif
+#ifdef CONFIG_MACH_TESLAMETER_3MH
+        if (machine_is_teslameter_3mh())
+			stepconfigx |= TSCADC_STEPCONFIG_INP_AN1 |
+				TSCADC_STEPCONFIG_YPN;
+		else
+#endif
 			stepconfigx |= TSCADC_STEPCONFIG_INP_AN2 |
 				TSCADC_STEPCONFIG_XNN;
 		break;
@@ -107,6 +113,11 @@ static void tsc_step_config(struct tscadc *ts_dev)
 			stepconfigy |= TSCADC_STEPCONFIG_XNP;
 		else
 #endif
+#ifdef CONFIG_MACH_TESLAMETER_3MH
+		if (machine_is_teslameter_3mh())
+			stepconfigy |= TSCADC_STEPCONFIG_XNP;
+		else
+#endif
 			stepconfigy |= TSCADC_STEPCONFIG_YPP;
 		break;
 	case 5:
@@ -130,6 +141,12 @@ static void tsc_step_config(struct tscadc *ts_dev)
 
 #ifdef CONFIG_MACH_VAR_SOM_AM33
 	if (machine_is_var_som_am33())
+		chargeconfig |= TSCADC_STEPCHARGE_INM_AN2 | TSCADC_STEPCHARGE_INP_AN2;
+	else
+		chargeconfig |= TSCADC_STEPCHARGE_INM_AN1 | TSCADC_STEPCHARGE_INP_AN1;
+#endif
+#ifdef CONFIG_MACH_TESLAMETER_3MH
+	if (machine_is_teslameter_3mh())
 		chargeconfig |= TSCADC_STEPCHARGE_INM_AN2 | TSCADC_STEPCHARGE_INP_AN2;
 	else
 		chargeconfig |= TSCADC_STEPCHARGE_INM_AN1 | TSCADC_STEPCHARGE_INP_AN1;

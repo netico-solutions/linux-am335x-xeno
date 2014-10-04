@@ -341,6 +341,11 @@ config MACH_VAR_SOM_AM33
 	bool "Variscite VAR-SOM-AM33 Module"
 	depends on SOC_OMAPAM33XX
 	default y
+	
+config MACH_TESLAMETER_3MH
+    bool "Teslameter 3MHx device"
+    depends on SOC_OMAPAM33XX
+    default y
 
 config MACH_AM335XIAEVM
 	bool "AM335X IA Evaluation Module"
