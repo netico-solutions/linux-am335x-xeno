@@ -113,7 +113,7 @@ static struct lcd_ctrl_config lcd_cfg = {
 	.raster_order		= 0,
 };
 
-struct da8xx_lcdc_platform_data VAR_LCD_pdata = {
+static struct da8xx_lcdc_platform_data VAR_LCD_pdata = {
 	.manu_name		= "Variscite",
 	.controller_data	= &lcd_cfg,
 	.type			= "VAR-WVGA",
@@ -431,7 +431,7 @@ static struct pinmux_config digin_pin_mux[] = {
     {"gpmc_a6.gpio1_22",            OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
     {"gpmc_a4.gpio1_20",            OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
     {"gpmc_a2.gpio1_18",            OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
-    {"gpma_a0.gpio1_16",            OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
+    {"gpmc_a0.gpio1_16",            OMAP_MUX_MODE7 | AM33XX_PIN_INPUT},
     {NULL, 0}
 };
 
@@ -455,7 +455,7 @@ static struct gpio som_rev_gpios[] __initdata = {
 	{AM33_VAR_SOM_REV_BIT1_GPIO, GPIOF_IN,	"som_rev_bit_1"},
 };
 
-int __init get_var_som_am33_rev(void)
+int get_var_som_am33_rev(void)
 {
 	static int som_rev = -1;
 
